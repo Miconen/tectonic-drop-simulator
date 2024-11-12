@@ -25,15 +25,28 @@ public class CoX {
     public static String COX_LOOT_IMAGE_PATH = "WeightTables\\CoxLoot.png";
     public static String IMAGE_FILE_FORMAT = "png";
 
+    // This function simulates completions of the Chambers of Xeric raid.
+    // Requires 3 Integer inputs:
+    //      numRaids: The number of raid completions to simulate
+    //      raidPoints: The number of points obtained during the raid
+    //      partySize: The number of people in the raiding party
+    // The rewards of the raid are stored and returned in a HashMap
+    //      The HashMap is made of String, Integer Key/Value pairs:
+    //      String: Name of the Loot rewarded.
+    //      Integer: The quantity of the Loot rewarded.
     public static HashMap<String, Integer> runCoX(int numRaids, int raidPoints, int partySize)
     {
+        // Variable declarations
         HashMap<String, Integer> output = new HashMap<String, Integer>();
+        // JSON I/O
         JSONParser parser = new JSONParser();
         JSONArray CoxUniques = null;
         JSONArray CoxGenerics = null;
         JSONObject Purple = null;
         JSONObject NormalLoot = null;
+        // Random Number Generator
         Random rand = new Random();
+        // Helper variables
         int checkPurple;
         int purpleWeight;
         int totalPWeight = accuracy * accuracy;
@@ -42,8 +55,13 @@ public class CoX {
         int totalLoots;
         int totalPurples;
 
+        // Populate the possible rewards offered.
+        // Two types of loot: Uniques, and Generics.
+        // The player(s) are guranteed either a Unique loot, or a Generic loot.
         try
         {
+            // CoxUniques is the array of possible Unique loots offered by the raid.
+            // CoxGenerics is the array of possible Generic loots offered by the raid.
             CoxUniques = (JSONArray) parser.parse(new FileReader(COX_UNIQUES_PATH));
             CoxGenerics = (JSONArray) parser.parse(new FileReader(COX_GENERICS_PATH));
         }
@@ -52,6 +70,9 @@ public class CoX {
             System.out.println("Invalid File Setup");
         }
         
+        // This loop iterates between 1 and the numRaids.
+        // Every iteration simulates one completion of the raid
+        // 
         for (int i = 1; i <= numRaids; i++)
         {
             totalLoots = 0;
