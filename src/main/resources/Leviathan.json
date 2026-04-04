@@ -1,0 +1,172 @@
+[
+    {
+        "id": 1,
+        "Unique Chance": 96,
+        "Orb Chance": 53,
+        "Tablet Chance": 25,
+        "Quartz Chance": 200,
+        "Supply Chance": 5,
+        "Pet Chance": 2500,
+        "Tablet Name": "Scarred_tablet",
+        "Quartz Name": "Smoke_quartz",
+        "Vestige Name": "Venator_vestige",
+        "Axe Piece Name": "Leviathan's_lure",
+        "Pet Name": "Lil'viathan"
+    },
+    {
+        "id": 2,
+        "food": "Sea_turtle",
+        "potion1": "Prayer_potion(3)",
+        "potion2": "Ranging_potion(2)"
+    },
+    {
+        "id": 3,
+        "name": "Pure_essence",
+        "weight": 25,
+        "quantity": 180
+    },
+    {
+        "id": 4,
+        "name": "Iron_ore",
+        "weight": 25,
+        "quantity": 57
+    },
+    {
+        "id": 5,
+        "name": "Silver_ore",
+        "weight": 25,
+        "quantity": 57
+    },
+    {
+        "id": 6,
+        "name": "Coal",
+        "weight": 200,
+        "quantity": 195
+    },
+    {
+        "id": 7,
+        "name": "Gold_ore",
+        "weight": 200,
+        "quantity": 67
+    },
+    {
+        "id": 8,
+        "name": "Adamantite_ore",
+        "weight": 25,
+        "quantity": 57
+    },
+    {
+        "id": 9,
+        "name": "Runite_ore",
+        "weight": 50,
+        "quantity": 27
+    },
+    {
+        "id": 10,
+        "name": "Sapphire",
+        "weight": 25,
+        "quantity": 25
+    },
+    {
+        "id": 11,
+        "name": "Emerald",
+        "weight": 25,
+        "quantity": 25
+    },
+    {
+        "id": 12,
+        "name": "Ruby",
+        "weight": 25,
+        "quantity": 25
+    },
+    {
+        "id": 13,
+        "name": "Uncut_ruby",
+        "weight": 125,
+        "quantity": 37
+    },
+    {
+        "id": 14,
+        "name": "Uncut_diamond",
+        "weight": 125,
+        "quantity": 37
+    },
+    {
+        "id": 15,
+        "name": "Dragon_javelin_heads",
+        "weight": 200,
+        "quantity": 54
+    },
+    {
+        "id": 16,
+        "name": "Dragon_bolts_(unf)",
+        "weight": 50,
+        "quantity": 150
+    },
+    {
+        "id": 17,
+        "name": "Onyx_bolt_tips",
+        "weight": 25,
+        "quantity": 90
+    },
+    {
+        "id": 18,
+        "name": "Raw_manta_ray",
+        "weight": 25,
+        "quantity": 180
+    },
+    {
+        "id": 19,
+        "name": "Anglerfish",
+        "weight": 200,
+        "quantity": 4
+    },
+    {
+        "id": 20,
+        "name": "Bronze_arrow",
+        "weight": 25,
+        "quantity": 63
+    },
+    {
+        "id": 21,
+        "name": "Mithril_arrow",
+        "weight": 25,
+        "quantity": 63
+    },
+    {
+        "id": 22,
+        "name": "Adamant_arrow",
+        "weight": 25,
+        "quantity": 63
+    },
+    {
+        "id": 23,
+        "name": "Rune_arrow",
+        "weight": 200,
+        "quantity": 54
+    },
+    {
+        "id": 24,
+        "name": "Body_rune",
+        "weight": 25,
+        "quantity": 180
+    },
+    {
+        "id": 25,
+        "name": "Earth_rune",
+        "weight": 25,
+        "quantity": 180
+    },
+    {
+        "id": 26,
+        "name": "Smoke_rune",
+        "weight": 200,
+        "quantity": 300
+    },
+    {
+        "id": 27,
+        "name": "Soul_rune",
+        "weight": 50,
+        "quantity": 600
+    }
+]
