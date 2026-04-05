@@ -27,6 +27,7 @@ public class Server {
 
         server.createContext("/kill", Server::handleKill);
         server.createContext("/raid", Server::handleRaid);
+        server.createContext("/supports", Server::handleSupports);
 
         server.start();
         System.out.println("Listening on http://localhost:" + port);
@@ -139,6 +140,32 @@ public class Server {
             e.printStackTrace();
             sendText(exchange, 500, "Error: " + e.getMessage());
         }
+    }
+
+    static void handleSupports(HttpExchange exchange) throws IOException {
+        if (!exchange.getRequestMethod().equals("GET")) {
+            exchange.sendResponseHeaders(405, -1);
+            return;
+        }
+
+        String json = "{"
+                + "\"bosses\":" + toJsonArray(VALID_BOSSES) + ","
+                + "\"raids\":" + toJsonArray(VALID_RAIDS)
+                + "}";
+
+        byte[] bytes = json.getBytes();
+        exchange.getResponseHeaders().set("Content-Type", "application/json");
+        exchange.sendResponseHeaders(200, bytes.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(bytes);
+        }
+    }
+
+    static String toJsonArray(Set<String> items) {
+        return "[" + items.stream()
+                .map(s -> "\"" + s + "\"")
+                .collect(java.util.stream.Collectors.joining(","))
+                + "]";
     }
 
     static void sendImage(HttpExchange exchange, byte[] image) throws IOException {
