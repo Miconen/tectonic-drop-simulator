@@ -1,5 +1,6 @@
 package weighttables;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +11,10 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class ImageGenerator {
 
-    public static String GenerateLootImage(HashMap<String, Integer> LootMap,
-            String filepath, String fileformat, String HeaderText) throws Exception {
+    public static byte[] GenerateLootImage(HashMap<String, Integer> LootMap, String HeaderText) throws Exception {
         // Dimensions of each item tile
         int TILE_WIDTH = 32;
         int TILE_HEIGHT = 32;
@@ -57,9 +56,8 @@ public class ImageGenerator {
             int num = item.getValue();
 
             // Debug statement, used to see which specific .png is missing
-            // System.out.println(IMAGE_PATH+itemName+"."+fileformat);
-            InputStream spriteStream = ImageGenerator.class.getResourceAsStream(
-                    "/LootSourceImages/" + itemName + "." + fileformat);
+            InputStream spriteStream = ImageGenerator.class
+                    .getResourceAsStream("/LootSourceImages/" + itemName + ".png");
             BufferedImage tempImage = ImageIO.read(spriteStream);
 
             g2d.drawImage(tempImage, X, Y, null);
@@ -102,9 +100,10 @@ public class ImageGenerator {
         g2d.drawString(HeaderText, BUFFER_WIDTH + 1, BUFFER_HEIGHT + TEXT_OFFSET_Y + 1);
         g2d.setColor(Color.YELLOW);
         g2d.drawString(HeaderText, BUFFER_WIDTH, BUFFER_HEIGHT + TEXT_OFFSET_Y);
+        g2d.dispose();
 
-        ImageIO.write(image, fileformat, new File(filepath));
-
-        return filepath;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", out);
+        return out.toByteArray();
     }
 }

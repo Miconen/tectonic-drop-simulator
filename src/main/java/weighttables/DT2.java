@@ -29,15 +29,19 @@ public class DT2 {
 
         HashMap<String, Integer> output = new HashMap<String, Integer>();
 
+        InputStream bossStream = DT2.class.getResourceAsStream("/" + InputBossName + ".json");
+        if (bossStream == null) {
+            throw new IllegalArgumentException("Unknown boss: " + InputBossName);
+        }
+
         try {
-            BossArray = (JSONArray) parser.parse(new InputStreamReader(
-                    DT2.class.getResourceAsStream("/" + InputBossName + ".json")));
+            BossArray = (JSONArray) parser.parse(new InputStreamReader(bossStream));
             UniversalDT2Uniques = (JSONArray) parser.parse(new InputStreamReader(
                     DT2.class.getResourceAsStream("/DT2Uniques.json")));
             VirtusTable = (JSONArray) parser.parse(new InputStreamReader(
                     DT2.class.getResourceAsStream("/Virtus.json")));
         } catch (Exception e) {
-            System.out.println("Failed to load boss data: " + e.getMessage());
+            throw new RuntimeException("Failed to load boss data: " + e.getMessage(), e);
         }
 
         JSONObject BossUniques = (JSONObject) BossArray.get(0);

@@ -1,13 +1,11 @@
 package weighttables;
 
+import java.io.FileOutputStream;
 import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
-        String COX_LOOT_IMAGE_PATH = "WeightTables\\CoxLoot.png";
-        String DT2_LOOT_IMAGE_PATH = "WeightTables\\DT2Loot.png";
-        String IMAGE_FILE_FORMAT = "png";
+        System.setProperty("java.awt.headless", "true");
 
         // Universal
         int NUM_KILLS = 10000;
@@ -33,7 +31,14 @@ public class Main {
         String HeaderText = ("Loot from " + NUM_KILLS + " " + Duke + " kills:");
 
         HashMap<String, Integer> test = DT2.simulateBoss(Duke, NUM_KILLS);
-        String imageTest = ImageGenerator.GenerateLootImage(test, DT2_LOOT_IMAGE_PATH, IMAGE_FILE_FORMAT, HeaderText);
+        byte[] imageBytes = ImageGenerator.GenerateLootImage(test, HeaderText);
+
+        // Temporary: write to disk just to verify it still works
+        try (FileOutputStream fos = new FileOutputStream("output.png")) {
+            fos.write(imageBytes);
+        }
+
+        System.out.println("Generated " + imageBytes.length + " bytes");
 
         // HashMap<String, Integer> test = CoX.runCoX(NUM_KILLS, COX_POINTS,
         // PARTY_SIZE);

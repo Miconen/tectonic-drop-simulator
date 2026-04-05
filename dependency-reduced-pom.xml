@@ -18,7 +18,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>weighttables.Main</mainClass>
+                  <mainClass>weighttables.Server</mainClass>
                 </transformer>
               </transformers>
             </configuration>
