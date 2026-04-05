@@ -1,0 +1,13 @@
+# Maven build output
+target/
+
+# IDE files (already some .vscode stuff in the repo)
+.vscode/
+.idea/
+*.iml
+
+# OS junk
+.DS_Store
+
+# The old test images in the repo root
+*.png
