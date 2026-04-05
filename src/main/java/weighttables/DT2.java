@@ -49,8 +49,6 @@ public class DT2 {
         Random rand = new Random();
         int roll;
 
-        System.out.println("The Player killed " + InputBossName + " " + numKills + " times, receiving: ");
-
         for (int i = 1; i <= numKills; i++) {
             String LootName = rollDT2Loot(BossArray, UniversalDT2Uniques, VirtusTable);
 

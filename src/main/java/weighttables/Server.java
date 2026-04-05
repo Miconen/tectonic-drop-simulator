@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
@@ -28,6 +29,7 @@ public class Server {
         server.createContext("/kill", Server::handleKill);
         server.createContext("/raid", Server::handleRaid);
         server.createContext("/supports", Server::handleSupports);
+        server.createContext("/", Server::handleIndex);
 
         server.start();
         System.out.println("Listening on http://localhost:" + port);
@@ -195,6 +197,21 @@ public class Server {
         byte[] bytes = message.getBytes();
         exchange.getResponseHeaders().set("Content-Type", "text/plain");
         exchange.sendResponseHeaders(code, bytes.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(bytes);
+        }
+    }
+
+    static void handleIndex(HttpExchange exchange) throws IOException {
+        if (!exchange.getRequestMethod().equals("GET")) {
+            exchange.sendResponseHeaders(405, -1);
+            return;
+        }
+
+        InputStream html = Server.class.getResourceAsStream("/index.html");
+        byte[] bytes = html.readAllBytes();
+        exchange.getResponseHeaders().set("Content-Type", "text/html");
+        exchange.sendResponseHeaders(200, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);
         }

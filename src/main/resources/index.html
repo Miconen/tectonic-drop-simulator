@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>OSRS Drop Simulator</title>
+  <style>
+    body {
+      background: #1b1b1b;
+      color: #ffff00;
+      font-family: monospace;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      color: #ff9900;
+    }
+
+    h2 {
+      color: #ff9900;
+      margin-top: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    select,
+    input,
+    button {
+      background: #2b2b2b;
+      color: #ffff00;
+      border: 1px solid #ff9900;
+      padding: 6px 10px;
+      margin-top: 4px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    button {
+      cursor: pointer;
+      margin-top: 14px;
+    }
+
+    button:hover {
+      background: #3b3b3b;
+    }
+
+    #result {
+      margin-top: 20px;
+      min-height: 100px;
+    }
+
+    #result img {
+      max-width: 100%;
+      image-rendering: pixelated;
+    }
+
+    .error {
+      color: #ff4444;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>OSRS Drop Simulator</h1>
+
+  <h2>Boss Kill</h2>
+  <label>Boss
+    <select id="boss"></select>
+  </label>
+  <label>Kill Count
+    <input type="number" id="killCount" value="100" min="1" max="100000">
+  </label>
+  <button onclick="simulateKill()">Simulate</button>
+
+  <h2>Raid</h2>
+  <label>Raid
+    <select id="raid"></select>
+  </label>
+  <label>Completions
+    <input type="number" id="raidCount" value="100" min="1" max="100000">
+  </label>
+  <label>Points
+    <input type="number" id="raidPoints" value="30000" min="1" max="10000000">
+  </label>
+  <label>Party Size
+    <input type="number" id="raidParty" value="3" min="1" max="100">
+  </label>
+  <button onclick="simulateRaid()">Simulate</button>
+
+  <div id="result"></div>
+
+  <script>
+    const result = document.getElementById('result');
+
+    fetch('/supports')
+      .then(r => r.json())
+      .then(data => {
+        const bossSelect = document.getElementById('boss');
+        data.bosses.forEach(b => {
+          bossSelect.innerHTML += `<option value="${b}">${b}</option>`;
+        });
+        const raidSelect = document.getElementById('raid');
+        data.raids.forEach(r => {
+          raidSelect.innerHTML += `<option value="${r}">${r}</option>`;
+        });
+      });
+
+    function simulateKill() {
+      const boss = document.getElementById('boss').value;
+      const count = document.getElementById('killCount').value;
+      const url = `/kill?boss=${boss}&count=${count}`;
+      loadImage(url);
+    }
+
+    function simulateRaid() {
+      const name = document.getElementById('raid').value;
+      const count = document.getElementById('raidCount').value;
+      const points = document.getElementById('raidPoints').value;
+      const party = document.getElementById('raidParty').value;
+      const url = `/raid?name=${encodeURIComponent(name)}&count=${count}&points=${points}&party=${party}`;
+      loadImage(url);
+    }
+
+    function loadImage(url) {
+      result.innerHTML = 'Simulating...';
+      fetch(url)
+        .then(r => {
+          if (!r.ok) return r.text().then(t => {throw new Error(t);});
+          return r.blob();
+        })
+        .then(blob => {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(blob);
+          result.innerHTML = '';
+          result.appendChild(img);
+        })
+        .catch(err => {
+          result.innerHTML = `<p class="error">${err.message}</p>`;
+        });
+    }
+  </script>
+</body>
+
+</html>
