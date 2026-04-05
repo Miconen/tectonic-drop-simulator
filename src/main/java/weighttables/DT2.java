@@ -7,7 +7,6 @@ import java.util.Random;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class DT2 {
 
@@ -16,9 +15,6 @@ public class DT2 {
 
     public static int FOOD_MINIMUM = 3;
     public static int FOOD_MAXIMUM = 4;
-
-    public static String IMAGE_FILE_FORMAT = "png";
-    public static String DT2_LOOT_IMAGE_PATH = "WeightTables\\DT2Loot.png";
 
     public static HashMap<String, Integer> simulateBoss(String InputBossName, int numKills) {
         JSONParser parser = new JSONParser();
